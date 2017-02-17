@@ -1,5 +1,6 @@
 defmodule App.ErrorHandler do
   use App.Web, :controller
+  require Logger
 
   alias App.ErrorView
 
@@ -23,9 +24,9 @@ defmodule App.ErrorHandler do
 
   def handle_errors(conn, reason) do
     if Mix.env == :dev do
-      IO.inspect conn
-      IO.inspect reason
+      Logger.error (inspect reason)
     end
+
     conn
     |> send_resp(conn.status, "Something went wrong")
   end
