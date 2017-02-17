@@ -2,7 +2,7 @@ defmodule App.ErrorView do
   use App.Web, :view
 
   def render("401.json", _assigns) do
-    %{error: "unauthenticated"}
+    %{code: 401, error: "unauthenticated"}
   end
 
   def render("401.html", _assigns) do
@@ -10,7 +10,7 @@ defmodule App.ErrorView do
   end
 
   def render("404.json", _assigns) do
-    %{error: "not found"}
+    %{code: 404, error: "not found"}
   end
 
   def render("404.html", _assigns) do
@@ -18,7 +18,7 @@ defmodule App.ErrorView do
   end
 
   def render("500.json", _assigns) do
-    %{error: "internal server error"}
+    %{code: 500, error: "internal server error"}
   end
 
   def render("500.html", _assigns) do
