@@ -6,10 +6,12 @@ defmodule App.SessionController do
 
   alias App.User
 
-  plug :preload_current_user when action in [:me]
-  plug :ensure_authenticated when action in [:me]
+  plug :preload_current_user
+    when action in [:show]
+  plug :ensure_authenticated
+    when action in [:show]
 
-  def me(conn, _params) do
+  def show(conn, _params) do
     user = Guardian.Plug.current_resource conn
     render conn, App.UserView, "show.json", user: user
   end
