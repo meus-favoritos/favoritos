@@ -39,6 +39,8 @@ defmodule App.Web do
 
       import App.Plugs.AuthPlug
       alias Guardian.Plug.{EnsureAuthenticated, LoadResource}
+
+      import Bodyguard.Controller
     end
   end
 
@@ -55,6 +57,8 @@ defmodule App.Web do
       import App.Router.Helpers
       import App.ErrorHelpers
       import App.Gettext
+
+      import Bodyguard.ViewHelpers
     end
   end
 
