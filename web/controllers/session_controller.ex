@@ -5,22 +5,27 @@ defmodule App.SessionController do
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
   alias App.{User, ErrorView}
+  alias App.Session.Policy
 
   plug :preload_current_user
     when action in [:show]
-  plug :ensure_authenticated
-    when action in [:show]
 
   def show(conn, _params) do
+    authorize! conn, %{}, policy: Policy
+
     user = Guardian.Plug.current_resource conn
     render conn, App.UserView, "show.json", user: user
   end
 
   def create(conn, %{"name" => name, "password" => password}) do
+    authorize! conn, %{}, policy: Policy
+
     user = Repo.get_by User, name: name
     check_user(conn, user, password)
   end
   def create(conn, %{"email" => email, "password" => password}) do
+    authorize! conn, %{}, policy: Policy
+
     user = Repo.get_by User, email: email
     check_user(conn, user, password)
   end
