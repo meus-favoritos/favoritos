@@ -43,7 +43,7 @@ defmodule App.ErrorView do
 
   # In case no render clause matches or no
   # template is found, let's render it as 500
-  def template_not_found(_template, assigns) do
+  def template_not_found(_template, _assigns) do
     "internal server error"
   end
 
