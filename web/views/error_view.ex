@@ -21,6 +21,16 @@ defmodule App.ErrorView do
     "Unauthorized"
   end
 
+  # 403
+
+  def render("403.json", assigns) do
+    api_error(assigns, 403, "forbidden")
+  end
+
+  def render("403.html", assigns) do
+    "Forbidden"
+  end
+
   # 404
 
   def render("404.json", assigns) do

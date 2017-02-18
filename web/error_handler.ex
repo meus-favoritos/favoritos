@@ -11,6 +11,12 @@ defmodule App.ErrorHandler do
     |> render(ErrorView, :"401", %{})
   end
 
+  def handle_errors(conn, %{reason: %Bodyguard.NotAuthorizedError{status: 403}}) do
+    conn
+    |> put_status(403)
+    |> render(ErrorView, :"403", %{})
+  end
+
   def handle_errors(conn, %{reason: %{plug_status: status}})
   when status in [404, 406] do
     conn
