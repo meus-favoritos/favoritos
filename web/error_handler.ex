@@ -4,6 +4,11 @@ defmodule App.ErrorHandler do
 
   alias App.ErrorView
 
+  def handle_errors(conn, %{reason: %Phoenix.ActionClauseError{}}) do
+    conn
+    |> bad_request
+  end
+
   def handle_errors(conn, %{reason: {:error, :not_found}}) do
     conn
     |> not_found
@@ -38,6 +43,12 @@ defmodule App.ErrorHandler do
   end
 
   # Helpers
+
+  def bad_request(conn) do
+    conn
+    |> put_status(400)
+    |> render(ErrorView, :"400", %{})
+  end
 
   def unauthenticated(conn) do
     conn

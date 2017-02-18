@@ -1,6 +1,15 @@
 defmodule App.ErrorView do
   use App.Web, :view
 
+
+  def render("400.json", _assigns) do
+    %{code: 400, error: "bad request"}
+  end
+
+  def render("400.html", _assigns) do
+    "Bad Request"
+  end
+
   def render("401.json", _assigns) do
     %{code: 401, error: "unauthenticated"}
   end
