@@ -21,7 +21,7 @@ defmodule App.SessionControllerTest do
   end
 
   test "unauthenticated :show", %{conn: conn} do
-    assert_error_sent 401, fn ->
+    assert_error_sent 403, fn ->
       conn = get conn, session_path(conn, :show)
       json_response(conn, 200)
     end
