@@ -4,61 +4,38 @@ defmodule App.ErrorHandler do
 
   alias App.ErrorView
 
-  def handle_errors(conn, %{reason: %Phoenix.ActionClauseError{}}) do
-    conn
-    |> bad_request
-  end
-
-  def handle_errors(conn, %{reason: {:error, :not_found}}) do
-    conn
-    |> not_found
-  end
-
-  def handle_errors(conn, %{reason: %Phoenix.Router.NoRouteError{}}) do
-    conn
-    # explicit render since pipelines don't run in this case therefore there's
-    # no way to set a default format
-    |> put_status(404)
-    |> render(ErrorView, "404.html", %{})
-  end
-
-  def handle_errors(conn, %{reason: %Ecto.NoResultsError{}}) do
-    conn
-    |> not_found
-  end
-
-  def handle_errors(conn, reason) do
-    if Mix.env == :dev do
-      Logger.error (inspect reason)
-    end
-
-    conn
-    |> send_resp(conn.status, "Something went wrong")
-  end
-
   # Called by Guardian
-  def unauthenticated(conn, %{reason: {:error, :no_session}}) do
-    conn
-    |> unauthenticated
-  end
-
-  # Helpers
-
-  def bad_request(conn) do
-    conn
-    |> put_status(400)
-    |> render(ErrorView, :"400", %{})
-  end
-
-  def unauthenticated(conn) do
+  def unauthenticated(conn, _reason) do
     conn
     |> put_status(401)
     |> render(ErrorView, :"401", %{})
   end
 
-  def not_found(conn) do
+  def handle_errors(conn, %{reason: %Bodyguard.NotAuthorizedError{status: 403}}) do
     conn
-    |> put_status(404)
-    |> render(ErrorView, :"404", %{})
+    |> put_status(403)
+    |> render(ErrorView, :"403", %{})
+  end
+
+  def handle_errors(conn, %{reason: %{plug_status: status}})
+  when status in [404, 406] do
+    conn
+    # explicit render since pipelines don't run in this cases therefore there's
+    # no way to set a default format
+    |> put_status(status)
+    |> render(ErrorView, "#{status}.json", %{})
+  end
+
+  def handle_errors(conn, %{reason: reason}) do
+    status = Plug.Exception.status(reason)
+
+    status_atom =
+      status
+      |> Integer.to_string
+      |> String.to_atom
+
+    conn
+    |> put_status(status)
+    |> render(ErrorView, status_atom, %{})
   end
 end

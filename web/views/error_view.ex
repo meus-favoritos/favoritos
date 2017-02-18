@@ -3,8 +3,8 @@ defmodule App.ErrorView do
 
   # 400
 
-  def render("400.json", _assigns) do
-    %{code: 400, error: "bad request"}
+  def render("400.json", assigns) do
+    api_error(assigns, 404, "bad request")
   end
 
   def render("400.html", _assigns) do
@@ -13,41 +13,58 @@ defmodule App.ErrorView do
 
   # 401
 
-  def render("401.json", %{message: message}) do
-    %{code: 401, error: message}
-  end
-
-  def render("401.json", _assigns) do
-    %{code: 401, error: "unauthenticated"}
+  def render("401.json", assigns) do
+    api_error(assigns, 401, "unauthenticated")
   end
 
   def render("401.html", _assigns) do
     "Unauthorized"
   end
 
+  # 403
+
+  def render("403.json", assigns) do
+    api_error(assigns, 403, "forbidden")
+  end
+
+  def render("403.html", assigns) do
+    "Forbidden"
+  end
+
   # 404
 
-  def render("404.json", _assigns) do
-    %{code: 404, error: "not found"}
+  def render("404.json", assigns) do
+    api_error(assigns, 404, "not found")
   end
 
   def render("404.html", _assigns) do
     "Not Found"
   end
 
-  # 500
+  # 406
 
-  def render("500.json", _assigns) do
-    %{code: 500, error: "internal server error"}
+  def render("406.json", assigns) do
+    api_error(assigns, 406, "not acceptable")
   end
 
-  def render("500.html", _assigns) do
-    "Internal server error"
+  def render("406.html", _assigns) do
+    "not acceptable"
   end
 
   # In case no render clause matches or no
   # template is found, let's render it as 500
-  def template_not_found(_template, assigns) do
-    render "500.html", assigns
+  def template_not_found(_template, _assigns) do
+    "internal server error"
+  end
+
+  # Helpers
+
+  defp api_error(assigns, status, default_message) do
+    message = Map.get(assigns, :message, default_message)
+
+    %{
+      code: status,
+      message: message
+    }
   end
 end

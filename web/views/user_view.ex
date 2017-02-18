@@ -10,9 +10,7 @@ defmodule App.UserView do
   end
 
   def render("user.json", %{user: user}) do
-    %{id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password_hash}
+    user
+    |> Map.take([:id, :name, :email])
   end
 end
