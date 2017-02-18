@@ -10,6 +10,10 @@ defmodule App.ErrorView do
     "Bad Request"
   end
 
+  def render("401.json", %{message: message}) do
+    %{code: 401, error: message}
+  end
+
   def render("401.json", _assigns) do
     %{code: 401, error: "unauthenticated"}
   end

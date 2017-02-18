@@ -4,7 +4,7 @@ defmodule App.SessionController do
   import Guardian, only: [encode_and_sign: 2]
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias App.User
+  alias App.{User, ErrorView}
 
   plug :preload_current_user
     when action in [:show]
@@ -35,13 +35,15 @@ defmodule App.SessionController do
 
       user ->
         conn
-        |> send_resp(:unauthorized, "Wrong password")
+        |> put_status(401)
+        |> render(ErrorView, :"401", message: "wrong credentials")
 
       true ->
         dummy_checkpw()
 
         conn
-        |> send_resp(:unauthorized, "User doesn't exist")
+        |> put_status(401)
+        |> render(ErrorView, :"401", message: "user not found")
     end
   end
 end
