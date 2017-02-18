@@ -1,7 +1,13 @@
 defmodule App.ErrorHandler do
   use App.Web, :controller
+  require Logger
 
   alias App.ErrorView
+
+  def handle_errors(conn, %{reason: %Phoenix.ActionClauseError{}}) do
+    conn
+    |> bad_request
+  end
 
   def handle_errors(conn, %{reason: {:error, :not_found}}) do
     conn
@@ -23,9 +29,9 @@ defmodule App.ErrorHandler do
 
   def handle_errors(conn, reason) do
     if Mix.env == :dev do
-      IO.inspect conn
-      IO.inspect reason
+      Logger.error (inspect reason)
     end
+
     conn
     |> send_resp(conn.status, "Something went wrong")
   end
@@ -37,6 +43,12 @@ defmodule App.ErrorHandler do
   end
 
   # Helpers
+
+  def bad_request(conn) do
+    conn
+    |> put_status(400)
+    |> render(ErrorView, :"400", %{})
+  end
 
   def unauthenticated(conn) do
     conn

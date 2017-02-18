@@ -22,7 +22,7 @@ defmodule App.Router do
     pipe_through :api
 
     resources "/users", UserController, except: @non_rest
-    get "/sessions", SessionController, :me
+    get "/sessions", SessionController, :show
     post "/sessions", SessionController, :create
   end
 

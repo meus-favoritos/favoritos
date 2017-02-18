@@ -20,3 +20,7 @@ config :app, App.Repo,
 
 config :comeonin, :bcrypt_log_rounds, 4
 config :comeonin, :pbkdf2_rounds, 1
+
+# Guardian
+config :guardian, Guardian,
+  secret_key: "foobar"
