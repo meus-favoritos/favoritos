@@ -1,4 +1,4 @@
-defmodule App.ErrorView do
+defmodule App.Web.ErrorView do
   use App.Web, :view
 
   # 400

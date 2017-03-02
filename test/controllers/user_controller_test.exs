@@ -1,7 +1,7 @@
 defmodule App.UserControllerTest do
-  use App.ConnCase
+  use App.Web.ConnCase
 
-  alias App.User
+  alias App.Web.User
   @valid_attrs %{email: "some content", password_hash: "some content", username: "some content"}
   @invalid_attrs %{}
 

@@ -1,7 +1,7 @@
 defmodule App.SessionControllerTest do
-  use App.ConnCase
+  use App.Web.ConnCase
 
-  alias App.{Repo, User}
+  alias App.Web.{Repo, User}
 
   @valid_attrs %{name: "lubien", password: "123456"}
   @invalid_attrs %{name: "foobar", password: "abcdef"}

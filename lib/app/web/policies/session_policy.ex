@@ -1,4 +1,4 @@
-defmodule App.Session.Policy do
+defmodule App.Web.Session.Policy do
   def can?(nil, :show, _), do: false
   def can?(_user, :show, _), do: true
 

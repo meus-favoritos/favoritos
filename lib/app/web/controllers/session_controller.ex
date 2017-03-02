@@ -1,11 +1,11 @@
-defmodule App.SessionController do
+defmodule App.Web.SessionController do
   use App.Web, :controller
 
   import Guardian, only: [encode_and_sign: 2]
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias App.{User, ErrorView}
-  alias App.Session.Policy
+  alias App.Web.{User, ErrorView}
+  alias App.Web.Session.Policy
 
   plug :preload_current_user
     when action in [:show]
@@ -14,7 +14,7 @@ defmodule App.SessionController do
     authorize! conn, %{}, policy: Policy
 
     user = Guardian.Plug.current_resource conn
-    render conn, App.UserView, "show.json", user: user
+    render conn, App.Web.UserView, "show.json", user: user
   end
 
   def create(conn, %{"name" => name, "password" => password}) do

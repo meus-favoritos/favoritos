@@ -1,8 +1,8 @@
-defmodule App.ErrorHandler do
+defmodule App.Web.ErrorHandler do
   use App.Web, :controller
   require Logger
 
-  alias App.ErrorView
+  alias App.Web.ErrorView
 
   # Called by Guardian
   def unauthenticated(conn, _reason) do

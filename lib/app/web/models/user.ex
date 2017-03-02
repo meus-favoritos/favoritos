@@ -1,7 +1,7 @@
-defmodule App.User do
+defmodule App.Web.User do
   use App.Web, :model
 
-  alias App.Helpers
+  alias App.Web.Helpers
   import Comeonin.Bcrypt, only: [hashpwsalt: 1]
 
   schema "users" do

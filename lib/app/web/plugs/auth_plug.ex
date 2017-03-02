@@ -1,4 +1,4 @@
-defmodule App.Plugs.AuthPlug do
+defmodule App.Web.Plugs.AuthPlug do
   alias Guardian.Plug.{EnsureAuthenticated}
   import Guardian.Plug, only: [current_resource: 1]
   import Plug.Conn
@@ -9,6 +9,6 @@ defmodule App.Plugs.AuthPlug do
   end
 
   def ensure_authenticated(conn, _opts \\ %{}) do
-    EnsureAuthenticated.call conn, EnsureAuthenticated.init(handler: App.ErrorHandler)
+    EnsureAuthenticated.call conn, EnsureAuthenticated.init(handler: App.Web.ErrorHandler)
   end
 end

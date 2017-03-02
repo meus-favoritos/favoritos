@@ -1,4 +1,4 @@
-defmodule App.SessionView do
+defmodule App.Web.SessionView do
   use App.Web, :view
 
   def render("token.json", %{token: token}) do
