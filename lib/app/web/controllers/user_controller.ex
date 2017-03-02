@@ -1,7 +1,7 @@
-defmodule App.UserController do
+defmodule App.Web.UserController do
   use App.Web, :controller
 
-  alias App.User
+  alias App.Web.User
 
   def index(conn, _params) do
     users = Repo.all(User)
@@ -19,7 +19,7 @@ defmodule App.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(App.ChangesetView, "error.json", changeset: changeset)
+        |> render(App.Web.ChangesetView, "error.json", changeset: changeset)
     end
   end
 
@@ -38,7 +38,7 @@ defmodule App.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(App.ChangesetView, "error.json", changeset: changeset)
+        |> render(App.Web.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

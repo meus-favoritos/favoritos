@@ -28,23 +28,26 @@ defmodule App.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller
+      use Phoenix.Controller, namespace: App.Web
 
       alias App.Repo
       import Ecto
       import Ecto.Query
 
-      import App.Router.Helpers
-      import App.Gettext
+      import App.Web.Router.Helpers
+      import App.Web.Gettext
 
-      import App.Plugs.AuthPlug
+      import App.Web.Plugs.AuthPlug
       alias Guardian.Plug.{EnsureAuthenticated, LoadResource}
+
+      import Bodyguard.Controller
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "web/templates"
+      use Phoenix.View, root: "lib/app/web/templates",
+                        namespace: App.Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -52,9 +55,11 @@ defmodule App.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import App.Router.Helpers
-      import App.ErrorHelpers
-      import App.Gettext
+      import App.Web.Router.Helpers
+      import App.Web.ErrorHelpers
+      import App.Web.Gettext
+
+      import Bodyguard.ViewHelpers
     end
   end
 
@@ -72,7 +77,7 @@ defmodule App.Web do
       alias App.Repo
       import Ecto
       import Ecto.Query
-      import App.Gettext
+      import App.Web.Gettext
     end
   end
 

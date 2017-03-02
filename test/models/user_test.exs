@@ -1,7 +1,7 @@
 defmodule App.UserTest do
-  use App.ModelCase
+  use App.Web.ModelCase
 
-  alias App.User
+  alias App.Web.User
 
   @valid_attrs %{email: "some content", password_hash: "some content", username: "some content"}
   @invalid_attrs %{}

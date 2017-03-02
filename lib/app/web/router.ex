@@ -1,4 +1,4 @@
-defmodule App.Router do
+defmodule App.Web.Router do
   use App.Web, :router
 
   @non_rest [:new, :edit]
@@ -18,21 +18,21 @@ defmodule App.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  scope "/api", App do
+  scope "/api", App.Web do
     pipe_through :api
 
     resources "/users", UserController, except: @non_rest
-    get "/sessions", SessionController, :me
+    get "/sessions", SessionController, :show
     post "/sessions", SessionController, :create
   end
 
-  scope "/", App do
+  scope "/", App.Web do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
   defp handle_errors(conn, reason) do
-    App.ErrorHandler.handle_errors(conn, reason)
+    App.Web.ErrorHandler.handle_errors(conn, reason)
   end
 end

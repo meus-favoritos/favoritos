@@ -10,10 +10,10 @@ config :app,
   ecto_repos: [App.Repo]
 
 # Configures the endpoint
-config :app, App.Endpoint,
+config :app, App.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "xv/DcoZvwZbBdmvPMkxlS210We0GGucsG5jIKB3UIl9LQPiYs1/SLYvVCYIS6y0r",
-  render_errors: [view: App.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: App.Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: App.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

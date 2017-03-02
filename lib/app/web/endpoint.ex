@@ -1,7 +1,7 @@
-defmodule App.Endpoint do
+defmodule App.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :app
 
-  socket "/socket", App.UserSocket
+  socket "/socket", App.Web.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -38,5 +38,5 @@ defmodule App.Endpoint do
     key: "_app_key",
     signing_salt: "lbUWJb4r"
 
-  plug App.Router
+  plug App.Web.Router
 end

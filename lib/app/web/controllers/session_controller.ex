@@ -1,24 +1,31 @@
-defmodule App.SessionController do
+defmodule App.Web.SessionController do
   use App.Web, :controller
 
   import Guardian, only: [encode_and_sign: 2]
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
-  alias App.User
+  alias App.Web.{User, ErrorView}
+  alias App.Web.Session.Policy
 
-  plug :preload_current_user when action in [:me]
-  plug :ensure_authenticated when action in [:me]
+  plug :preload_current_user
+    when action in [:show]
 
-  def me(conn, _params) do
+  def show(conn, _params) do
+    authorize! conn, %{}, policy: Policy
+
     user = Guardian.Plug.current_resource conn
-    render conn, App.UserView, "show.json", user: user
+    render conn, App.Web.UserView, "show.json", user: user
   end
 
   def create(conn, %{"name" => name, "password" => password}) do
+    authorize! conn, %{}, policy: Policy
+
     user = Repo.get_by User, name: name
     check_user(conn, user, password)
   end
   def create(conn, %{"email" => email, "password" => password}) do
+    authorize! conn, %{}, policy: Policy
+
     user = Repo.get_by User, email: email
     check_user(conn, user, password)
   end
@@ -33,13 +40,15 @@ defmodule App.SessionController do
 
       user ->
         conn
-        |> send_resp(:unauthorized, "Wrong password")
+        |> put_status(401)
+        |> render(ErrorView, :"401", message: "wrong credentials")
 
       true ->
         dummy_checkpw()
 
         conn
-        |> send_resp(:unauthorized, "User doesn't exist")
+        |> put_status(401)
+        |> render(ErrorView, :"401", message: "user not found")
     end
   end
 end
