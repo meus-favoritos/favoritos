@@ -27,7 +27,7 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti sunt ullam a voluptate est possimus totam aliquam qui, numquam, sint officiis deleniti. Itaque quam vero voluptatum eius saepe. Temporibus, sed?</p></div>
 						<div class="column">
 
-							<img src="img/folder.png" alt="img folder structure">
+							<img :src="folderImage" alt="img folder structure">
 						</div>
 		</div>
 	</section>
@@ -37,9 +37,12 @@
 </template>
 
 <script>
-	
+  const folderImage = require('../../../img/folder.png')
 	module.exports={
-		name:"Content"
+    name:"Content",
+    data: () => ({
+      folderImage
+    })
 	}
 
 </script>
