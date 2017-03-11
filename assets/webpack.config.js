@@ -50,11 +50,19 @@ module.exports = {
 		},
 		{
 			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-			loader: "url-loader"
+			loader: "file-loader",
+      options: {
+        name: 'images/[hash:6].[ext]',
+        publicPath: '/'
+      }
 		},
 		{
 			test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-			loader: "url-loader"
+			loader: "file-loader",
+      options: {
+        name: 'fonts/[hash:6].[ext]',
+        publicPath: '/'
+      }
 		}
 		] //rules
 
