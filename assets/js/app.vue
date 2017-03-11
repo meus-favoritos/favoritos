@@ -25,6 +25,5 @@
 <style lang="scss">
 @import "~milligram/src/milligram.sass";
 @import "../css/app.scss";
-
-
+@import "~font-awesome/css/font-awesome.css";
 </style>
