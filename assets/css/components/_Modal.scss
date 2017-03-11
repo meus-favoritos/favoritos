@@ -1,0 +1,17 @@
+@keyframes fadeout{
+
+from{opacity:0}
+to{opacity:1}
+}
+
+.modal-bg {
+position: absolute;
+top:0;
+right:0;
+left:0;
+bottom:0;
+background-color: $color-initial;
+animation: fadeout 0.8s;
+display: block;
+z-index: 999999;
+}

@@ -1,0 +1,60 @@
+@import "components/Menu.scss";
+@import "components/Modal.scss";
+.text-center{
+	text-align: center;
+}
+
+.bg-color-initial{
+	background-color: $color-initial;
+}
+.bg-color-primary{
+	background-color: $color-primary;
+}
+.bg-color-secondary{
+	background-color: $color-secondary;
+	color: $color-initial;
+}
+.bg-color-tertiary{
+	background-color: $color-tertiary;
+}
+.bg-color-quaternary{
+	background-color: $color-quaternary;
+}
+.bg-color-quinary{
+	background-color: $color-quinary;
+}
+
+@mixin importImg($img){
+	background-image: url($img);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.bg-header,.bg-color{
+	height:100%;
+	width:100%;
+}
+
+.bg-header{
+	@include importImg('../img/header.jpg');
+}
+
+.bg-color{
+	background-color: rgba(46,255,232,0.2);
+}
+
+.gap{
+	padding-top:2rem;
+}
+
+.container{
+	padding: 2rem;
+}
+
+.button-50{
+	width: 50%;
+}
+
+.button-100{
+	width:100%;
+}
